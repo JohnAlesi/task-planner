@@ -1,5 +1,8 @@
-export default {
+import { defineNuxtConfig } from '@nuxt/bridge'
+
+export default defineNuxtConfig({
   ssr: false,
+  bridge: false,
   /*
    ** Headers of the page
    */
@@ -47,6 +50,10 @@ export default {
 
     // https://github.com/nuxt-community/eslint-module
     "@nuxtjs/eslint-module",
+
+    "@nuxt/postcss8",
+    "@nuxtjs/composition-api/module",
+    "@pinia/nuxt",
   ],
   /*
    ** Nuxt.js modules
@@ -82,6 +89,12 @@ export default {
         },
       });
     },
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    },
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -104,10 +117,15 @@ export default {
     },
   },
 
+  env: {
+    API_URL: "https://63906a8d65ff41831112cdd1.mockapi.io/api/v1",
+  },
+
+
   publicRuntimeConfig: {
     environment: process.env.APP_ENV,
     baseUrl: process.env.BASE_URL,
     apiUrl: process.env.API_URL,
     version: process.env.VERSION,
   },
-};
+});

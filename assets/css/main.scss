@@ -1,7 +1,14 @@
-// SCSS Variables
-@import "variables";
+@use "globals";
+
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
+// Tailwind
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// SCSS Variables
+@import "variables";
 
 // Bootstrap Vue
 // @import '~bootstrap-vue/src/index.scss';
