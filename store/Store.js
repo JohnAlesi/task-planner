@@ -4,7 +4,9 @@ import {ref, computed} from "@nuxtjs/composition-api";
 const useTask = defineStore("task", () =>{
     const tasks= ref([]);
 
-    
+    const users = ref([]);
+
+    // Task
 
     const isImportant = computed(() => {
         return tasks.value.filter((task) => task.is_important);
@@ -46,7 +48,8 @@ const useTask = defineStore("task", () =>{
         updateTask,
         isActive,
         isDone,
-        isImportant
+        isImportant,
+        users
     };
 });
 

@@ -45,9 +45,19 @@ class TaskService {
             const taskStore = useStore();
             taskStore.tasks = data;
         } catch (err) {
-            toastr.error("Unable to gather datas.");
+            toastr.error("Unable to fetch tasks.");
         }
-    } 
+    }
+
+    static async getUsers () {
+        try {
+            const { data } = await axios.get(API_URL + "/users");
+            const userStore = useStore();
+            userStore.users = data;
+        }   catch (err) {
+            toastr.error("Unable to fetch users.")
+        }
+    }
 }
 
 export default TaskService;

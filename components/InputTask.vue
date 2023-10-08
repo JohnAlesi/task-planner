@@ -15,9 +15,9 @@ const taskText = ref("");
 
 const handleSubmit = () => {
   Service.addTask(taskText.value);
-  taskText.value = ""; // Clear the task text
+  taskText.value = "";
   if (route.value.path === "/")
-    router.push("/task");
+    router.push("/tasks");
 }
 
 // Input rendering

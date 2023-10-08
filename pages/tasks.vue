@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import useService from "@/service/Services";
 useService.getTasks();
+useService.getUsers()
 
 const filters = ["all", "important", "done"];
 

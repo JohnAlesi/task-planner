@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import useService from "@/service/Services";
 
-
 // Component
 const props = defineProps({ task: { type: Object, required: true } });
 
@@ -48,6 +47,20 @@ const handleDelete = () => {
   useService.removeTask(props.task.id);
 };
 
+// Update Assigned user
+const $assigneeAvatar = ref(null);
+const handleAssignUser = (newAssignee) => {
+  useService.updateTask(
+    props.task.id,
+    { assignee: newAssignee },
+    "Task assigne updated"
+  );
+  shouldShowDropdown.value = false;
+};
+
+// User dropdown
+const shouldShowDropdown = ref(false);
+
 </script>
 
 <template>
@@ -85,6 +98,29 @@ const handleDelete = () => {
       </template>
     </div>
     <div class="relative flex gap-[.8rem]">
+      <DropdownList
+        v-if="shouldShowDropdown"
+        :current-user="task.assignee.name"
+        @close="shouldShowDropdown = false"
+        @assignUser="handleAssignUser"
+      />
+      <button
+        ref="$assigneeAvatar"
+        class="task-item__assignee w-[1.6rem] h-[1.6rem] overflow-hidden rounded-full grid place-items-center"
+        @click="shouldShowDropdown = true"
+      >
+        <img
+          v-if="task.assignee.name"
+          class="w-full"
+          :src="`https://api.dicebear.com/7.x/initials/svg?seed=${task.assignee.name}&backgroundColor=0fbcf9,6f42c1,e83e8c,ffc048,0be881,36b9cc,34495e,27ae60,2ecc71,2980b9`"
+          :alt="`${task.assignee.name} Avatar`"
+        />
+        <font-awesome-icon
+          v-else
+          class="task-item__assignee-avatar w-[1.6rem] h-[1.6rem] text-gray-300 transition-colors hover:!text-gray-500"
+          icon="fa-solid fa-user-xmark"
+        />
+      </button>
       <button class="grid" @click="handleImportant">
         <font-awesome-icon 
         class="text-gray-300 transition-colors hover:!text-yellow" 
